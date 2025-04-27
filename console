@@ -1,35 +1,97 @@
-Create database final;
-Use final;
-Drop table if exists users;
+create database candlee_shop;
+use candlee_shop;
+
 CREATE TABLE users (
-                       user_id INT AUTO_INCREMENT PRIMARY KEY,
-                       username VARCHAR(50) UNIQUE,
-                       email VARCHAR(100) UNIQUE,
-                       password_hash VARCHAR(100)
-);
-CREATE TABLE products (
-                          name VARCHAR(100),
-                          price DECIMAL(10,2),
-                          category VARCHAR(50),
-                          image VARCHAR(255)
-);
-CREATE TABLE cart (
-                      id INT AUTO_INCREMENT PRIMARY KEY,
-                      user_id INT,
-                      product_id INT,
-                      quantity INT
-);
-CREATE TABLE orders (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        user_id INT,
-                        total DECIMAL(10,2),
-                        shipping_method VARCHAR(50),
-                        payment_method VARCHAR(50)
-);
-CREATE TABLE order_items (
-                             id INT AUTO_INCREMENT PRIMARY KEY,
-                             order_id INT,
-                             product_id INT,
-                             quantity INT
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       username VARCHAR(50) UNIQUE NOT NULL,
+                       email VARCHAR(100) UNIQUE NOT NULL,
+                       password_hash VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE login_labels (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              label_name VARCHAR(50),
+                              label_text VARCHAR(255)
+);
+
+INSERT INTO login_labels (label_name, label_text) VALUES
+                                                      ('title', 'Hey there! Ready to shop smart and easy?'),
+                                                      ('email', 'Enter your email:'),
+                                                      ('password', 'Enter your password:'),
+                                                      ('notAMember', 'Not a member yet? Sign up below!');
+                                                     ('title', 'Hey there! Ready to shop smart and easy?');
+
+CREATE TABLE register_labels (
+                                 id INT AUTO_INCREMENT PRIMARY KEY,
+                                 label_name VARCHAR(50),
+                                 label_text VARCHAR(255)
+);
+
+INSERT INTO register_labels (label_name, label_text) VALUES
+                                                         ('registerLabel', 'Register Now!'),
+                                                         ('alreadyRegistered', 'Already Registered?'),
+                                                         ('username', 'Username'),
+                                                         ('email', 'Email'),
+                                                         ('password', 'Password');
+
+DROP TABLE IF EXISTS homepage_labels;
+CREATE TABLE homepage_labels (
+                                 id INT AUTO_INCREMENT PRIMARY KEY,
+                                 label_name VARCHAR(50),
+                                 label_text VARCHAR(255),
+                                 image_data LONGBLOB 
+)
+INSERT INTO homepage_labels (label_name, label_text)
+VALUES
+    ('Title', 'TOP Deals, TRUSTED Quality'),
+    ('UnderTitle', 'BESTSELLER'),
+    ('message', 'Don’t stop here! Explore better deals in our catalog.'),
+    ('pricelabel', 'Only €7.99');
+INSERT INTO homepage_labels (label_name)
+VALUES
+    ('picture1'),
+    ('picture2');
+
+select * From homepage_labels;
+CREATE TABLE product_catalog_labels (
+                                        id INT AUTO_INCREMENT PRIMARY KEY,
+                                        label_name VARCHAR(50),
+                                        label_text VARCHAR(255),
+                                        image_path VARCHAR(255)
+);
+ALTER TABLE product_catalog_labels ADD COLUMN image_data LONGBLOB;
+
+INSERT INTO product_catalog_labels (label_name, label_text) VALUES
+                                                                ('title1', 'PRODUCT CATALOG'),
+                                                                ('title2', 'Smell the difference. Shop our candle collection.'),
+
+                                                                ('candle1', ''),
+                                                                ('candle2', ''),
+                                                                ('candle3', ''),
+
+                                                                ('price1', '7.99$'),
+                                                                ('price2', '9.99$'),
+                                                                ('price3', '11.49$'),
+
+                                                                ('description1', 'Sharp focus in every flame!'),
+                                                                ('description2', '🔥 BESTSELLER'),
+                                                                ('description3', 'Whispers calm with every flicker!'),
+                                                                ('description4', 'Fills rooms with dreamy scent!'),
+                                                                ('description5', '🍃 Buy More, Light More!'),
+                                                                ('description6', '💝 Gift More, Spend Less!');
+CREATE TABLE checkout_labels (
+                                 id INT AUTO_INCREMENT PRIMARY KEY,
+                                 label_name VARCHAR(50),
+                                 label_text VARCHAR(255),
+                                 image_data LONGBLOB
+);
+
+INSERT INTO checkout_labels (label_name, label_text) VALUES
+                                                         ('logo', ''), -- for the logo image
+                                                         ('Checkout', 'CHECKOUT'),
+                                                         ('shippingAddress', 'Shipping Address:'),
+                                                         ('Telephone', 'Telephone:'),
+                                                         ('removeProductButton', 'Remove Product'),
+                                                         ('placeOrderButton', 'Place Order'),
+                                                         ('goBackShoppingButton', 'Continue Shopping'),
+                                                         ('totalPriceLabel', 'Price:');
